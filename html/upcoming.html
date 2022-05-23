@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- favicon -->
+    <link rel="icon" href="../assets/icons/favicon.ico" type="image/x-icon">
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <title>Upcoming Event</title>
+</head>
+
+<body>
+
+    <!-- navbar -->
+    <header class="bg-dark">
+
+        <div class="container">
+
+            <!-- navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark py-4">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="../index.html"><img src="../assets/img/logo.png" alt="logo" width="150"></a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link" href="../index.html">Home</a>
+                            <a class="nav-link" href="#">Upcoming Event</a>
+                            <a class="nav-link" href="pastevent.html">Past Event</a>
+                            <a class="nav-link" href="contact.html">Contact</a>
+                            <a class="nav-link" href="stats.html">Stats</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- carrousel -->
+    <section class="section-carrousel text-center">
+
+        <div class="carousel slide text-center container" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <h1 class="titulo-principal">Upcoming Event</h1>
+            </div>
+
+            <a class="carousel-control-prev" data-bs-slide="prev" href="../index.html">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" data-bs-slide="next" href="pastevent.html">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+
+    </section>
+
+    <!-- checkbox search -->
+    <div class="filtros d-flex align-items-center justify-content-center">
+
+        <div class="container row mt-4 align-items-center">
+            <!-- checkbox -->
+            <div class="col-xs-1 col-lg-8" id="contenedor-checkbox-future">
+                
+            </div>
+
+            <!-- input search -->
+            <div class="col-xs-1 col-lg-4 contenedor-search text-center d-flex justify-content-between">
+                <input class="w-100 py-1 ps-2" type="search" name="busqueda-eventos" id="input-future" placeholder="Search..">
+                <!-- <input class="w-25 ms-1 btn-cards py-1" type="submit" value="🔍"> -->
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- cards -->
+        <section class="d-flex justify-content-center align-items-center">
+            <figure class="container row text-center d-flex justify-content-evenly mt-5 gap-4" id="contenedor-cards-future">
+
+            </figure>
+        </section>
+    </main>
+
+    <!-- footer -->
+    <footer class="bg-dark">
+        <div class="container d-flex align-items-center justify-content-between px-5 py-3 flex-wrap">
+            <nav class="footer-nav">
+                <a href="https://www.instagram.com/" target="_blank">
+                    <img src="../assets/icons/instagram1.png" alt="icono instagram">
+                </a>
+                <a href="https://www.facebook.com/" target="_blank">
+                    <img src="../assets/icons/facebook1.png" alt="icono facebook">
+                </a>
+                <a href="https://www.whatsapp.com/" target="_blank">
+                    <img src="../assets/icons/whatsapp1.png" alt="icono whatsapp">
+                </a>
+            </nav>
+
+            <p class="fs-3">Cohort</p>
+        </div>
+    </footer>
+
+    <!-- script bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <!-- script js -->
+    <script src="../js/amazingEvents.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/futureEvents.js"></script>
+
+</body>
+
+</html>
