@@ -46,23 +46,33 @@ function printCards(array, node, ruta) {
 
     node.innerHTML = '';
 
-    array.forEach(event => {
-
-        node.innerHTML +=
-            `<div class="card col-4" style="width: 18rem;">
-                <img src="${event.image}" class="card-img-top" alt="${event.name}">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${event.name}</h5>
-                    <p class="card-text">${event.description}</p>
-                    <p class="card-text card-text-date" style="margin-top: auto;">${event.date}</p>
+    if ( array.length !== 0 ) {
         
-                    <div class="d-flex justify-content-evenly align-items-center" style="margin-top: auto;">
-                        <p class="mb-0">u$s ${event.price}</p>
-                        <a href="${ruta}?id=${event.id}" class="btn btn-cards">View more</a>
+        array.forEach(event => {
+    
+            node.innerHTML +=
+                `<div class="card col-4" style="width: 18rem;">
+                    <img src="${event.image}" class="card-img-top" alt="${event.name}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${event.name}</h5>
+                        <p class="card-text">${event.description}</p>
+                        <p class="card-text card-text-date" style="margin-top: auto;">${event.date}</p>
+            
+                        <div class="d-flex justify-content-evenly align-items-center" style="margin-top: auto;">
+                            <p class="mb-0">u$s ${event.price}</p>
+                            <a href="${ruta}?id=${event.id}" class="btn btn-cards">View more</a>
+                        </div>
                     </div>
-                </div>
+                </div>`
+        });
+
+    } else {
+        node.innerHTML = 
+            `<div>
+                <h2>Sin resultados en la busqueda</h2>
+                <img src="assets/img/not-found.gif" alt="not found">
             </div>`
-    });
+        }
 
 }
 
