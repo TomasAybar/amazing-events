@@ -23,6 +23,11 @@ const inputPast = document.querySelector('#input-past');
 const rutaIndex = 'html/details.html';
 const rutaDetails = 'details.html';
 
+// href not-found
+const rutaImgIndex = 'assets/img/not-found.gif';
+const rutaImgHtml = '../assets/img/not-found.gif';
+
+
 let eventos = [...data.eventos]; // clono el array de los eventos
 
 eventos.map((evento, index) => evento.id = index); // recorro los eventos y les agrego un ID unico
@@ -42,7 +47,7 @@ const eventsFuture = eventos.filter(evento => dateReturn(data.fechaActual) < dat
 const eventsPast = eventos.filter(evento => dateReturn(data.fechaActual) > dateReturn(evento.date));
 
 // imprime los eventos de un array en el nodo seleccionado
-function printCards(array, node, ruta) {
+function printCards(array, node, rutaID, rutaImg) {
 
     node.innerHTML = '';
 
@@ -60,7 +65,7 @@ function printCards(array, node, ruta) {
             
                         <div class="d-flex justify-content-evenly align-items-center" style="margin-top: auto;">
                             <p class="mb-0">u$s ${event.price}</p>
-                            <a href="${ruta}?id=${event.id}" class="btn btn-cards">View more</a>
+                            <a href="${rutaID}?id=${event.id}" class="btn btn-cards">View more</a>
                         </div>
                     </div>
                 </div>`
@@ -69,8 +74,8 @@ function printCards(array, node, ruta) {
     } else {
         node.innerHTML = 
             `<div>
-                <h2>Sin resultados en la busqueda</h2>
-                <img src="assets/img/not-found.gif" alt="not found">
+                <p class="fs-2">🚫 No search results 🚫</p>
+                <img src="${rutaImg}" alt="not found">
             </div>`
         }
 
@@ -143,7 +148,7 @@ function printCheckboxs(array, node) {
 const normalizeString = str => str.trim().toLowerCase();
 
 // cerebro de los filtros
-function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ruta) {
+function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, rutaID, rutaImg) {
 
     let arrayResultado = [];
 
@@ -175,6 +180,6 @@ function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ru
         // console.log('pagina por default');
     }
 
-    printCards(arrayResultado, contenedorPrint, ruta);
+    printCards(arrayResultado, contenedorPrint, rutaID, rutaImg);
 
 }

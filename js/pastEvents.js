@@ -12,12 +12,12 @@ checkboxsPast.forEach(elemento => elemento.addEventListener('click', (e) => { //
     if (e.target.checked) {
 
         arrayCheckedPast.push(e.target.parentNode.textContent);
-        filtradora(arrayCheckedPast, eventsPast, conteinerCardsPast, textInputPast, rutaDetails);
+        filtradora(arrayCheckedPast, eventsPast, conteinerCardsPast, textInputPast, rutaDetails, rutaImgHtml);
 
     } else {
 
         arrayCheckedPast = arrayCheckedPast.filter(uncheck => uncheck !== e.target.parentNode.textContent);
-        filtradora(arrayCheckedPast, eventsPast, conteinerCardsPast, textInputPast, rutaDetails);
+        filtradora(arrayCheckedPast, eventsPast, conteinerCardsPast, textInputPast, rutaDetails, rutaImgHtml);
 
     }
 }))
@@ -26,8 +26,8 @@ inputPast.addEventListener('keyup', (e) => { // evento keyup en el search y filt
 
     textInputPast = e.target.value;
 
-    filtradora(arrayCheckedPast, eventsPast, conteinerCardsPast, textInputPast, rutaDetails);
+    filtradora(arrayCheckedPast, eventsPast, conteinerCardsPast, textInputPast, rutaDetails, rutaImgHtml);
 
 })
 
-filtradora(arrayCheckedPast, eventsPast, conteinerCardsPast, textInputPast, rutaDetails);
+filtradora(arrayCheckedPast, eventsPast, conteinerCardsPast, textInputPast, rutaDetails, rutaImgHtml);
