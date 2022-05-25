@@ -32,4 +32,3 @@ inputIndex.addEventListener('keyup', (e) => { // evento keyup en el search y fil
 
 filtradora(arrayCheckedIndex, eventos, conteinerCardsIndex, textInputIndex, rutaIndex, rutaImgIndex);
 
-
