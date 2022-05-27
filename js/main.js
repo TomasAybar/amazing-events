@@ -32,17 +32,17 @@ const APIurl = 'https://amazing-events.herokuapp.com/api/events';
 
 
 
-async function getFetch() {
+// async function getFetch() {
 
-    await fetch(APIurl)
-            .then(res => res.json() )
-            .then(data => {
+//     await fetch(APIurl)
+//             .then(res => res.json() )
+//             .then(data => {
 
 
-                let eventos = data.events;  // guardo mis eventos 
+//                 let eventos = data.events;  // guardo mis eventos 
 
-            })
-}
+//             })
+// }
   
 
 // let eventos = [...data.eventos]; // clono el array de los eventos

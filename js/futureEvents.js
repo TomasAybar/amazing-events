@@ -1,33 +1,78 @@
 // // UPCOMING EVENT
+getFetch();
+async function getFetch() {
 
-printCheckboxs(categoryReturn(eventsFuture), conteinerCheckboxFuture); // imprime checkbos en base a eventos
+    await fetch(APIurl)
+        .then(res => res.json())
+        .then(data => {
 
-const checkboxsFuture = document.querySelectorAll('input[type="checkbox"]'); // selecciona todos los checkbox
 
-let arrayCheckedFuture = [];
-let textInputFuture = '';
+            let eventos = data.events;  // guardo mis eventos
 
-checkboxsFuture.forEach(elemento => elemento.addEventListener('click', (e) => { // evento click en los checkbox y filtrado
+            const eventsFuture = eventos.filter(evento => dateReturn(data.currentDate) < dateReturn(evento.date));
 
-    if (e.target.checked) {
+            printCheckboxs(categoryReturn(eventsFuture), conteinerCheckboxFuture); // imprime checkbos en base a eventos
 
-        arrayCheckedFuture.push(e.target.parentNode.textContent);
-        filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+            const checkboxsFuture = document.querySelectorAll('input[type="checkbox"]'); // selecciona todos los checkbox
 
-    } else {
+            let arrayCheckedFuture = [];
+            let textInputFuture = '';
 
-        arrayCheckedFuture = arrayCheckedFuture.filter(elemento => elemento !== e.target.parentNode.textContent);
-        filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+            checkboxsFuture.forEach(elemento => elemento.addEventListener('click', (e) => { // evento click en los checkbox y filtrado
 
-    }
-}))
+                if (e.target.checked) {
 
-inputFuture.addEventListener('keyup', (e) => { // evento keyup en el search y filtrado
+                    arrayCheckedFuture.push(e.target.parentNode.textContent);
+                    filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
 
-    textInputFuture = e.target.value;
+                } else {
 
-    filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+                    arrayCheckedFuture = arrayCheckedFuture.filter(elemento => elemento !== e.target.parentNode.textContent);
+                    filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
 
-})
+                }
+            }))
 
-filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+            inputFuture.addEventListener('keyup', (e) => { // evento keyup en el search y filtrado
+
+                textInputFuture = e.target.value;
+
+                filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+
+            })
+
+            filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+        })
+}
+
+// printCheckboxs(categoryReturn(eventsFuture), conteinerCheckboxFuture); // imprime checkbos en base a eventos
+
+// const checkboxsFuture = document.querySelectorAll('input[type="checkbox"]'); // selecciona todos los checkbox
+
+// let arrayCheckedFuture = [];
+// let textInputFuture = '';
+
+// checkboxsFuture.forEach(elemento => elemento.addEventListener('click', (e) => { // evento click en los checkbox y filtrado
+
+//     if (e.target.checked) {
+
+//         arrayCheckedFuture.push(e.target.parentNode.textContent);
+//         filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+
+//     } else {
+
+//         arrayCheckedFuture = arrayCheckedFuture.filter(elemento => elemento !== e.target.parentNode.textContent);
+//         filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+
+//     }
+// }))
+
+// inputFuture.addEventListener('keyup', (e) => { // evento keyup en el search y filtrado
+
+//     textInputFuture = e.target.value;
+
+//     filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
+
+// })
+
+// filtradora(arrayCheckedFuture, eventsFuture, conteinerCardsFuture, textInputFuture, rutaDetails, rutaImgHtml);
