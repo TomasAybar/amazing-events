@@ -27,10 +27,27 @@ const rutaDetails = 'details.html';
 const rutaImgIndex = 'assets/img/not-found.gif';
 const rutaImgHtml = '../assets/img/not-found.gif';
 
+// ruta api
+const APIurl = 'https://amazing-events.herokuapp.com/api/events';
 
-let eventos = [...data.eventos]; // clono el array de los eventos
 
-eventos.map((evento, index) => evento.id = index); // recorro los eventos y les agrego un ID unico
+
+async function getFetch() {
+
+    await fetch(APIurl)
+            .then(res => res.json() )
+            .then(data => {
+
+
+                let eventos = data.events;  // guardo mis eventos 
+
+            })
+}
+  
+
+// let eventos = [...data.eventos]; // clono el array de los eventos
+
+// eventos.map((evento, index) => evento.id = index); // recorro los eventos y les agrego un ID unico
 
 /**
  *    FUNCIONES
@@ -43,8 +60,8 @@ function dateReturn(fecha) {
 }
 
 // filtra por futuro o pasado a partir de la fecha actual
-const eventsFuture = eventos.filter(evento => dateReturn(data.fechaActual) < dateReturn(evento.date));
-const eventsPast = eventos.filter(evento => dateReturn(data.fechaActual) > dateReturn(evento.date));
+// const eventsFuture = eventos.filter(evento => dateReturn(data.fechaActual) < dateReturn(evento.date));
+// const eventsPast = eventos.filter(evento => dateReturn(data.fechaActual) > dateReturn(evento.date));
 
 // imprime los eventos de un array en el nodo seleccionado
 function printCards(array, node, rutaID, rutaImg) {
