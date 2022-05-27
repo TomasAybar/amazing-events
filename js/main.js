@@ -82,7 +82,7 @@ function printCards(array, node, rutaID, rutaImg) {
             
                         <div class="d-flex justify-content-evenly align-items-center" style="margin-top: auto;">
                             <p class="mb-0">u$s ${event.price}</p>
-                            <a href="${rutaID}?id=${event.id}" class="btn btn-cards">View more</a>
+                            <a href="${rutaID}?id=${event._id}" class="btn btn-cards">View more</a>
                         </div>
                     </div>
                 </div>`
@@ -98,8 +98,8 @@ function printCards(array, node, rutaID, rutaImg) {
 
 }
 
-// imprime el evento en el nodo seleccionado
-function printDetail(evento, node) {
+// imprime un evento de una base de datos en el nodo seleccionado
+function printDetail(evento, node, data) {
 
     node.innerHTML = '';
 
@@ -117,7 +117,7 @@ function printDetail(evento, node) {
                                     <p class="card-text"><span class="datos-detail">Date:</span> ${evento.date}</p>
                                     <p class="card-text"><span class="datos-detail">Place:</span> ${evento.place}</p>
                                     <p class="card-text"><span class="datos-detail">Capacity:</span> ${evento.capacity}</p>
-                                    <p class="card-text">${assistanceOrEstimate(evento)}</p>
+                                    <p class="card-text">${assistanceOrEstimate(data, evento)}</p>
                                     <p class="card-text"><span class="datos-detail">Price:</span> u$s ${evento.price}</p>
                                 </div>
 
@@ -131,9 +131,10 @@ function printDetail(evento, node) {
 }
 
 // determina si el evento lleva la propiedad assistance o estimate
-function assistanceOrEstimate(evento) {
+function assistanceOrEstimate(data, evento) {
 
-    if ( dateReturn(data.fechaActual) > dateReturn(evento.date) ) {
+    
+    if (dateReturn(data.currentDate) > dateReturn(evento.date) ) {
 
         return `<span class="datos-detail">Assistance:</span> ${evento.assistance}`
         
