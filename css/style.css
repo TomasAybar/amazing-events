@@ -179,6 +179,6 @@ caption {
     padding: .5rem;
 }
 
-table td {
+table td, table th{
     border: 3px solid #000000;
 }

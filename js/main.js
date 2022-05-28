@@ -30,6 +30,11 @@ const rutaImgHtml = '../assets/img/not-found.gif';
 // ruta api
 const APIurl = 'https://amazing-events.herokuapp.com/api/events';
 
+// tables
+const tableEvents = document.querySelector('#table-events');
+const tableUpcomming = document.querySelector('#table-upcomming');
+const tablePast = document.querySelector('#table-past');
+
 
 
 // async function getFetch() {
@@ -200,4 +205,61 @@ function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ru
 
     printCards(arrayResultado, contenedorPrint, rutaID, rutaImg);
 
+}
+
+// toma un array y lo devuelve ordenado respecto a su porcentaje
+function calcPercentageAttendance(arrayEvents) {
+
+    let arrayResultado = []
+
+    arrayEvents.forEach(evento => {
+
+        let resultado = (evento.assistance * 100) / evento.capacity;
+
+        arrayResultado.push({ name: evento.name, percentage: resultado, id: evento._id })
+
+    })
+
+    // console.log(arrayResultado);
+
+    arrayResultado.sort((a, b) => a.percentage - b.percentage);
+
+    // console.log(arrayResultado);
+
+    return arrayResultado
+
+}
+
+// toma un array y lo devuelve ordenado respecto a su capacidad
+function calcCapacity(arrayEvents) {
+
+    let arrayResultado = [];
+
+    arrayEvents.forEach(evento => {
+
+        arrayResultado.push({ name: evento.name, capacity: evento.capacity, id: evento._id })
+
+    })
+    arrayResultado.sort((a, b) => a.capacity - b.capacity);
+    // console.log(arrayResultado);
+    return arrayResultado;
+}
+
+
+// toma un array de eventos y me devuelve un array que dentro esta separado por categorias
+function calcCategory(arrayEvents) {
+
+    let arrayCategorys = categoryReturn(arrayEvents);
+    let arrayResultado = [];
+
+    arrayCategorys.forEach(categoria => {
+
+        arrayResultado.push(arrayEvents.filter(eventos => eventos.category === categoria));
+
+    })
+
+
+    // console.log(arrayResultado);
+
+    return arrayResultado;
 }
