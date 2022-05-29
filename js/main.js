@@ -254,11 +254,9 @@ function calcCategory(arrayEvents) {
 
     arrayCategorys.forEach(categoria => {
 
-        arrayResultado.push(arrayEvents.filter(eventos => eventos.category === categoria));
+        arrayResultado.push(arrayEvents.filter(evento => evento.category === categoria));
 
     })
-
-
     // console.log(arrayResultado);
 
     return arrayResultado;

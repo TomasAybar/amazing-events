@@ -18,25 +18,19 @@ async function getFetch() {
                 let arrayCategorysFuture = calcCategory(eventsFuture);
                 let arrayCategorysPast = calcCategory(eventsPast);
 
-                // console.log(arrayCategorysPast);
-                // console.log(arrayCategorysFuture);
-                // console.log(arraySortedPast);
-                // console.log(arraySortedCapacity);
-
-                // console.log(arraySortedPast[arraySortedPast.length - 1]); //mayor porcentaje
-                // console.log(arraySortedPast[0]);                          //menor porcentaje
-
-                // console.log(arraySortedCapacity[arraySortedCapacity.length - 1]) // mayor capacidad
-
                 let arrayTableEvents = [];
 
                 arrayTableEvents.push( arraySortedPast[arraySortedPast.length - 1] );
                 arrayTableEvents.push( arraySortedPast[0] )
                 arrayTableEvents.push( arraySortedCapacity[arraySortedCapacity.length - 1] )
 
-                console.log(arrayTableEvents);
 
                 printTableEvents(arrayTableEvents, tableEvents);
+
+                printTableCategory(arrayCategorysFuture, tableUpcomming);
+                printTableCategory(arrayCategorysPast, tablePast);
+
+                
 
             })
 }
@@ -66,13 +60,82 @@ function printTableEvents(arrayDatos, contenedorTable) {
 
     resultado.forEach(elemento => {
 
-        let filaElmento = document.createElement('td');
+        let filaElemento = document.createElement('td');
 
-        filaElmento.classList.add('p-2');
-        filaElmento.innerHTML = elemento;
-        contenedorFilas.appendChild(filaElmento);
+        filaElemento.classList.add('p-2');
+        filaElemento.innerHTML = elemento;
+        contenedorFilas.appendChild(filaElemento);
 
     })
 
     contenedorTable.appendChild(contenedorFilas);
+}
+
+function printTableCategory(arrayCategorias, contenedorPrint){
+
+
+    arrayCategorias.forEach(arrayCategorias => {
+
+        printTableUpcoming(gananciaTotal(arrayCategorias), contenedorPrint )
+
+    })
+
+}
+
+function gananciaTotal(arrayCategorias) {
+
+    let categorys = arrayCategorias.map(evento => evento.category);
+
+    const [title] = Array.from(new Set(categorys) );
+
+    const assitOrEstimate = arrayCategorias.reduce((total, evento) => evento.assistance ? total + Number(evento.assistance) : total + Number(evento.estimate), 0);
+    // console.log(`Estimate Total: ${estimateTotal}`);
+
+    const capacityTotal = arrayCategorias.reduce((total, evento) => total + Number(evento.capacity), 0);
+    // console.log(`Capacidad Total: ${capacityTotal}`);
+
+    const percentageTotal = ( assitOrEstimate * 100 ) / capacityTotal; 
+
+    // console.log(`El total estimado de asistencia: ${ percentageTotal.toFixed(3) }%`);
+    
+    // const priceTotal = arrayCategorias.reduce((total, evento) => total + (evento.estimate * evento.price), 0);
+
+
+
+    const priceTotal = arrayCategorias.reduce((total, evento) => evento.assistance ? total + (evento.assistance * evento.price) : total + (evento.estimate * evento.price), 0)
+
+
+    
+
+    
+    // console.log(priceTotal/arrayCategorias.length);
+
+
+    // let resultado = [title, percentageTotal.toFixed(3), priceTotal / arrayCategorias.length];
+    // let resultado = [title, priceTotal / arrayCategorias.length, percentageTotal.toFixed(3)];
+    let resultado = [title, `u$s ${(priceTotal / arrayCategorias.length).toFixed(2)}`, `${percentageTotal.toFixed(2)}%` ];
+    // console.log(resultado);
+    // return resultado2
+
+    return resultado;
+
+}
+
+function printTableUpcoming(arrayCategoria, contenedorTable) {
+
+    let contenedorFilas = document.createElement('tr');
+
+    arrayCategoria.forEach(elemento => {
+
+        let filaElemento = document.createElement('td');
+
+        filaElemento.classList.add('p-2');
+        filaElemento.innerHTML = elemento;
+
+        contenedorFilas.appendChild(filaElemento);
+
+    })
+
+    contenedorTable.appendChild(contenedorFilas);
+
 }
