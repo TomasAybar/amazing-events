@@ -2,6 +2,8 @@
 getFetch();
 async function getFetch() {
 
+    viewSpiner(conteinerCardsFuture);
+
     await fetch(APIurl)
         .then(res => res.json())
         .then(data => {

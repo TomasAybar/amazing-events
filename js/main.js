@@ -62,10 +62,10 @@ function printCards(array, node, rutaID, rutaImg) {
 
     node.innerHTML = '';
 
-    if ( array.length !== 0 ) {
-        
+    if (array.length !== 0) {
+
         array.forEach(event => {
-    
+
             node.innerHTML +=
                 `<div class="card col-4" style="width: 18rem;">
                     <img src="${event.image}" class="card-img-top" alt="${event.name}">
@@ -83,12 +83,12 @@ function printCards(array, node, rutaID, rutaImg) {
         });
 
     } else {
-        node.innerHTML = 
+        node.innerHTML =
             `<div>
                 <p class="fs-2">🚫 No search results 🚫</p>
                 <img src="${rutaImg}" alt="not found">
             </div>`
-        }
+    }
 
 }
 
@@ -103,7 +103,7 @@ function printDetail(evento, node, data) {
     node.innerHTML = '';
 
     node.innerHTML =
-                    `<div class="col-md-6 text-center">
+        `<div class="col-md-6 text-center">
                         <img src="${evento.image}" alt="fotografia evento" class="img-fluid rounded-start">
                     </div>
                     
@@ -136,15 +136,15 @@ function printDetail(evento, node, data) {
  * @returns span de con el dato de assitance o estimate
  */
 function assistanceOrEstimate(data, evento) {
-    
-    if (dateReturn(data.currentDate) > dateReturn(evento.date) ) {
+
+    if (dateReturn(data.currentDate) > dateReturn(evento.date)) {
 
         return `<span class="datos-detail">Assistance:</span> ${evento.assistance}`
-        
+
     } else {
 
         return `<span class="datos-detail">Estimate:</span> ${evento.estimate}`
-        
+
     }
 }
 
@@ -206,7 +206,7 @@ function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ru
 
     } else if (arrayCheckeado.length == 0 && textInput !== '') { // OK
 
-        arrayResultado.push(...arrayEventos.filter(event => event.name.toLowerCase().includes( normalizeString(textInput) ) ))
+        arrayResultado.push(...arrayEventos.filter(event => event.name.toLowerCase().includes(normalizeString(textInput))))
 
     } else {
         arrayResultado.push(...arrayEventos); // OK
@@ -237,7 +237,7 @@ function calcPercentageAttendance(arrayEvents) {
 
     arrayResultado.sort((a, b) => b.percentage - a.percentage);
 
-    return [ arrayResultado[0], arrayResultado[arrayResultado.length - 1] ]
+    return [arrayResultado[0], arrayResultado[arrayResultado.length - 1]]
 
 }
 
@@ -357,4 +357,15 @@ function printTable(arrayCategoria, contenedorTable) {
 
     contenedorTable.appendChild(contenedorFilas);
 
+}
+
+function viewSpiner(node) {
+    node.innerHTML = '';
+    const spinner = document.createElement('div');
+    spinner.classList.add('spinner');
+
+    spinner.innerHTML =`<div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>`
+
+    node.appendChild(spinner);
 }
