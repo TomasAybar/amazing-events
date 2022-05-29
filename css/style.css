@@ -155,7 +155,8 @@ footer p {
     background-color: var(--color-azul);
 }
 
-.form-textarea, form input {
+.form-textarea,
+form input {
     font-size: 1.2rem;
 }
 
@@ -177,10 +178,25 @@ caption {
     padding: .5rem;
 }
 
-table td, table th{
+table td,
+table th {
     border: 3px solid #000000;
 }
 
+
+@media (max-width: 992px) {
+
+
+    .contenedor-input {
+        order: 2;
+    }
+
+    .contenedor-search {
+        order: 1;
+        margin-bottom: .5rem;
+    }
+
+}
 
 /* spinner */
 
