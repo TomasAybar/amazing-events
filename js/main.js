@@ -189,7 +189,7 @@ function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ru
 
         arrayCheckeado.map(categoria => {
 
-            arrayResultado.push(...arrayEventos.filter(event => event.name.toLowerCase().includes(normalizeString(textInput)) && event.category === categoria))
+            arrayResultado.push(...arrayEventos.filter(event => (event.name.toLowerCase().includes(normalizeString(textInput)) || event.category.toLowerCase().includes(normalizeString(textInput))) && event.category === categoria ))
         })
 
         // console.log('tengo eventos checkeados y texto en mi buscador');
@@ -206,7 +206,7 @@ function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ru
 
     } else if (arrayCheckeado.length == 0 && textInput !== '') { // OK
 
-        arrayResultado.push(...arrayEventos.filter(event => event.name.toLowerCase().includes(normalizeString(textInput))))
+        arrayResultado.push(...arrayEventos.filter(event => (event.name.toLowerCase().includes(normalizeString(textInput)) || event.category.toLowerCase().includes(normalizeString(textInput))) ))
 
     } else {
         arrayResultado.push(...arrayEventos); // OK
@@ -329,7 +329,9 @@ function calcTableCategory(arrayCategorias) {
 
     const priceTotal = arrayCategorias.reduce((total, evento) => evento.assistance ? total + (evento.assistance * evento.price) : total + (evento.estimate * evento.price), 0)
 
-    let resultado = [title, `u$s ${(priceTotal / arrayCategorias.length).toFixed(2)}`, `${percentageTotal.toFixed(2)}%`];
+    const priceFormat = new Intl.NumberFormat().format( (priceTotal / arrayCategorias.length).toFixed(2) );
+    // let resultado = [title, `u$s ${(priceTotal / arrayCategorias.length).toFixed(2)}`, `${percentageTotal.toFixed(2)}%`];
+    let resultado = [title, `u$s ${priceFormat}`, `${percentageTotal.toFixed(2)}%`];
 
     return resultado;
 
@@ -359,6 +361,10 @@ function printTable(arrayCategoria, contenedorTable) {
 
 }
 
+/**
+ * 
+ * @param {nodo donde se va a mostrar el spinner} node 
+ */
 function viewSpiner(node) {
     node.innerHTML = '';
     const spinner = document.createElement('div');
