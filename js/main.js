@@ -36,39 +36,28 @@ const tableUpcomming = document.querySelector('#table-upcomming');
 const tablePast = document.querySelector('#table-past');
 
 
-
-// async function getFetch() {
-
-//     await fetch(APIurl)
-//             .then(res => res.json() )
-//             .then(data => {
-
-
-//                 let eventos = data.events;  // guardo mis eventos 
-
-//             })
-// }
-  
-
-// let eventos = [...data.eventos]; // clono el array de los eventos
-
-// eventos.map((evento, index) => evento.id = index); // recorro los eventos y les agrego un ID unico
-
 /**
  *    FUNCIONES
  */
 
-// '2022-01-01' -> [2022,01,01]
+
+/**
+ * 
+ * @param {'2022-01-01'} fecha 
+ * @returns [2022,01,01]
+ */
 function dateReturn(fecha) {
     let eventYear = fecha.split('-');
     return eventYear.map(date => Number(date))
 }
 
-// filtra por futuro o pasado a partir de la fecha actual
-// const eventsFuture = eventos.filter(evento => dateReturn(data.fechaActual) < dateReturn(evento.date));
-// const eventsPast = eventos.filter(evento => dateReturn(data.fechaActual) > dateReturn(evento.date));
-
-// imprime los eventos de un array en el nodo seleccionado
+/**
+ * 
+ * @param {array de eventos} array 
+ * @param {nodo donde se van a imprimir las cards} node 
+ * @param {ruta del ID} rutaID 
+ * @param {ruta de la imagen not-found} rutaImg 
+ */
 function printCards(array, node, rutaID, rutaImg) {
 
     node.innerHTML = '';
@@ -103,7 +92,12 @@ function printCards(array, node, rutaID, rutaImg) {
 
 }
 
-// imprime un evento de una base de datos en el nodo seleccionado
+/**
+ * 
+ * @param {objeto que contiene un evento} evento 
+ * @param {nodo donde se va a imprimir la card} node 
+ * @param {variable donde se encuentre la base de datos} data 
+ */
 function printDetail(evento, node, data) {
 
     node.innerHTML = '';
@@ -135,9 +129,13 @@ function printDetail(evento, node, data) {
 
 }
 
-// determina si el evento lleva la propiedad assistance o estimate
+/**
+ * 
+ * @param {variable donde se encuentre la base de datos} data 
+ * @param {objeto que contiene un evento} evento 
+ * @returns span de con el dato de assitance o estimate
+ */
 function assistanceOrEstimate(data, evento) {
-
     
     if (dateReturn(data.currentDate) > dateReturn(evento.date) ) {
 
@@ -150,14 +148,22 @@ function assistanceOrEstimate(data, evento) {
     }
 }
 
-// me guarda las categorias y elimina las repetidas de un array
+/**
+ * 
+ * @param {array de eventos} array 
+ * @returns array de categorias sin que contenga repetidas
+ */
 function categoryReturn(array) {
     let category = array.map(event => event.category);
 
     return category.filter((elemento, index) => category.indexOf(elemento) === index)
 }
 
-// muestra los checkbox de un array en el nodo seleccionado
+/**
+ * 
+ * @param {array de eventos} array 
+ * @param {nodo donde se van a imprimir los checkbox} node 
+ */
 function printCheckboxs(array, node) {
 
     array.forEach(event => {
@@ -167,7 +173,11 @@ function printCheckboxs(array, node) {
 
 }
 
-// devuelve un string normalizado
+/**
+ * 
+ * @param {string} str 
+ * @returns el mismo string eliminando espacios laterales y en minuscula
+ */
 const normalizeString = str => str.trim().toLowerCase();
 
 // cerebro de los filtros
@@ -207,7 +217,11 @@ function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ru
 
 }
 
-// toma un array y lo devuelve ordenado respecto a su porcentaje
+/**
+ * 
+ * @param {array de eventos} arrayEvents 
+ * @returns array con el % de asistencia max y minimo
+ */
 function calcPercentageAttendance(arrayEvents) {
 
     let arrayResultado = []
@@ -220,18 +234,19 @@ function calcPercentageAttendance(arrayEvents) {
 
     })
 
-    // console.log(arrayResultado);
 
-    arrayResultado.sort((a, b) => a.percentage - b.percentage);
+    arrayResultado.sort((a, b) => b.percentage - a.percentage);
 
-    // console.log(arrayResultado);
-
-    return arrayResultado
+    return [ arrayResultado[0], arrayResultado[arrayResultado.length - 1] ]
 
 }
 
-// toma un array y lo devuelve ordenado respecto a su capacidad
-function calcCapacity(arrayEvents) {
+/**
+ * 
+ * @param {array de eventos} arrayEvents 
+ * @returns evento de mayor capacidad
+ */
+function capacityMax(arrayEvents) {
 
     let arrayResultado = [];
 
@@ -240,13 +255,16 @@ function calcCapacity(arrayEvents) {
         arrayResultado.push({ name: evento.name, capacity: evento.capacity, id: evento._id })
 
     })
-    arrayResultado.sort((a, b) => a.capacity - b.capacity);
+    arrayResultado.sort((a, b) => b.capacity - a.capacity);
     // console.log(arrayResultado);
-    return arrayResultado;
+    return arrayResultado[0];
 }
 
-
-// toma un array de eventos y me devuelve un array que dentro esta separado por categorias
+/**
+ * 
+ * @param {array de eventos} arrayEvents 
+ * @returns array que dentro, tengo arrays agrupados respecto a su categoria
+ */
 function calcCategory(arrayEvents) {
 
     let arrayCategorys = categoryReturn(arrayEvents);
@@ -257,7 +275,86 @@ function calcCategory(arrayEvents) {
         arrayResultado.push(arrayEvents.filter(evento => evento.category === categoria));
 
     })
-    // console.log(arrayResultado);
 
     return arrayResultado;
+}
+
+/**
+ * 
+ * @param {[assit%high, assit%low, capacity max]} arrayDatos 
+ * @param {contenedor donde se va a imprimir la fila creada} contenedorTable 
+ */
+function printTableEvents(arrayDatos, contenedorTable) {
+
+    let resultado = []
+
+    arrayDatos.forEach(evento => evento.capacity ?
+        resultado.push(`${evento.name}: ${evento.capacity}`) :
+        resultado.push(`${evento.name} with ${evento.percentage}% of assistance`))
+
+    printTable(resultado, contenedorTable);
+}
+
+/**
+ * 
+ * @param {array de eventos futuros o pasados agrupados por categorias} arrayCategorias 
+ * @param {contenedor donde se van a imprimir las filas creadas} contenedorPrint 
+ */
+function printTableCategory(arrayCategorias, contenedorPrint) {
+
+    arrayCategorias.forEach(arrayCategoria => {
+
+        printTable(calcTableCategory(arrayCategoria), contenedorPrint)
+
+    })
+
+}
+
+/**
+ * 
+ * @param {array con eventos de la misma categoria} arrayCategorias 
+ * @returns [titulo, ganancia estimada, % de asistencia]
+ */
+function calcTableCategory(arrayCategorias) {
+
+    let categorys = arrayCategorias.map(evento => evento.category);
+
+    const [title] = Array.from(new Set(categorys));
+
+    const assitOrEstimate = arrayCategorias.reduce((total, evento) => evento.assistance ? total + Number(evento.assistance) : total + Number(evento.estimate), 0);
+
+    const capacityTotal = arrayCategorias.reduce((total, evento) => total + Number(evento.capacity), 0);
+
+    const percentageTotal = (assitOrEstimate * 100) / capacityTotal;
+
+    const priceTotal = arrayCategorias.reduce((total, evento) => evento.assistance ? total + (evento.assistance * evento.price) : total + (evento.estimate * evento.price), 0)
+
+    let resultado = [title, `u$s ${(priceTotal / arrayCategorias.length).toFixed(2)}`, `${percentageTotal.toFixed(2)}%`];
+
+    return resultado;
+
+}
+
+/**
+ * 
+ * @param {[titulo, ganancia estimada, % de asistencia]} arrayCategoria 
+ * @param {contenedor donde se va a imprimir la fila creada} contenedorTable 
+ */
+function printTable(arrayCategoria, contenedorTable) {
+
+    let contenedorFilas = document.createElement('tr');
+
+    arrayCategoria.forEach(elemento => {
+
+        let filaElemento = document.createElement('td');
+
+        filaElemento.classList.add('p-2');
+        filaElemento.innerHTML = elemento;
+
+        contenedorFilas.appendChild(filaElemento);
+
+    })
+
+    contenedorTable.appendChild(contenedorFilas);
+
 }
