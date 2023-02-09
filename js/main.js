@@ -28,7 +28,7 @@ const rutaImgIndex = 'assets/img/not-found.gif';
 const rutaImgHtml = '../assets/img/not-found.gif';
 
 // ruta api
-const APIurl = 'https://amazing-events.herokuapp.com/api/events';
+const APIurl = 'https://mindhub-xj03.onrender.com/api/amazing';
 
 // tables
 const tableEvents = document.querySelector('#table-events');
@@ -189,7 +189,7 @@ function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ru
 
         arrayCheckeado.map(categoria => {
 
-            arrayResultado.push(...arrayEventos.filter(event => (event.name.toLowerCase().includes(normalizeString(textInput)) || event.category.toLowerCase().includes(normalizeString(textInput))) && event.category === categoria ))
+            arrayResultado.push(...arrayEventos.filter(event => (event.name.toLowerCase().includes(normalizeString(textInput)) || event.category.toLowerCase().includes(normalizeString(textInput))) && event.category === categoria))
         })
 
         // console.log('tengo eventos checkeados y texto en mi buscador');
@@ -206,7 +206,7 @@ function filtradora(arrayCheckeado, arrayEventos, contenedorPrint, textInput, ru
 
     } else if (arrayCheckeado.length == 0 && textInput !== '') { // OK
 
-        arrayResultado.push(...arrayEventos.filter(event => (event.name.toLowerCase().includes(normalizeString(textInput)) || event.category.toLowerCase().includes(normalizeString(textInput))) ))
+        arrayResultado.push(...arrayEventos.filter(event => (event.name.toLowerCase().includes(normalizeString(textInput)) || event.category.toLowerCase().includes(normalizeString(textInput)))))
 
     } else {
         arrayResultado.push(...arrayEventos); // OK
@@ -329,7 +329,7 @@ function calcTableCategory(arrayCategorias) {
 
     const priceTotal = arrayCategorias.reduce((total, evento) => evento.assistance ? total + (evento.assistance * evento.price) : total + (evento.estimate * evento.price), 0)
 
-    const priceFormat = new Intl.NumberFormat().format( (priceTotal / arrayCategorias.length).toFixed(2) );
+    const priceFormat = new Intl.NumberFormat().format((priceTotal / arrayCategorias.length).toFixed(2));
     // let resultado = [title, `u$s ${(priceTotal / arrayCategorias.length).toFixed(2)}`, `${percentageTotal.toFixed(2)}%`];
     let resultado = [title, `u$s ${priceFormat}`, `${percentageTotal.toFixed(2)}%`];
 
@@ -370,7 +370,7 @@ function viewSpiner(node) {
     const spinner = document.createElement('div');
     spinner.classList.add('spinner');
 
-    spinner.innerHTML =`<div class="double-bounce1"></div>
+    spinner.innerHTML = `<div class="double-bounce1"></div>
                         <div class="double-bounce2"></div>`
 
     node.appendChild(spinner);
